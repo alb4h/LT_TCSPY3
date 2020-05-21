@@ -30,25 +30,53 @@ tess.forward(50)
 tess.shape("circle")
 tess.shapesize(3)
 tess.fillcolor("green")
+alex.pu()
+alex.shape("circle")
+alex.shapesize(3)
+alex.fillcolor("orange")
+alex.fd(40)
+alex.lt(90)
+alex.fd(120)
+jess.pu()
+jess.shape("circle")
+jess.shapesize(3)
+jess.fillcolor("red")
+jess.fd(40)
+jess.lt(90)
+jess.fd(190)
 
-
+wn.colormode(255)
 
 state_num = 0
+
 def advance_state_machine():
     global state_num
     if state_num == 0:  # Transition from state 0 to state 1
-        tess.forward(70)
-        tess.fillcolor("orange")
+        tess.fillcolor(0, 255, 0)
+        jess.fillcolor(105, 0, 0)
+        alex.fillcolor(173, 104, 0)
         state_num = 1
-    elif state_num == 1:  # Transition from state 1 to state 2
-        tess.forward(70)
-        tess.fillcolor("red")
+    elif state_num == 1:
+        tess.fillcolor(0, 255, 0)
+        jess.fillcolor(105, 0, 0)
+        alex.fillcolor('orange')
         state_num = 2
+    elif state_num == 2:  # Transition from state 1 to state 2
+        tess.fillcolor(0, 105, 0)
+        jess.fillcolor(105, 0, 0)
+        alex.fillcolor("orange")
+        state_num = 3
     else:  # Transition from state 2 to state 0
-        tess.back(140)
-        tess.fillcolor("green")
+        alex.fillcolor(173, 104, 0)
+        jess.fillcolor("red")
+        tess.fillcolor(0, 105, 0)
         state_num = 0
-    wn.ontimer(advance_state_machine, 700)
+    if (state_num == 2 or state_num == 3):
+        wn.ontimer(advance_state_machine, 1000)
+    elif (state_num == 1):
+        wn.ontimer(advance_state_machine, 3000)
+    else:
+        wn.ontimer(advance_state_machine, 2000)
 
-wn.ontimer(advance_state_machine, 700)
+advance_state_machine()
 wn.mainloop()
